@@ -1,38 +1,38 @@
 import java.util.ArrayList;
 
-// Cart class
+
 class Cart {
     private ArrayList<CartItem> cartItems;
 
-    // Constructor
+    
     public Cart() {
         cartItems = new ArrayList<>();
     }
 
-    // Add robot to cart with quantity check
+
     public void addRobotToCart(RobotProduct robot, int quantity) {
         if (robot.getStock() >= quantity) {
             CartItem cartItem = findCartItem(robot);
             if (cartItem != null) {
-                // If the robot is already in the cart, just update the quantity
+              
                 cartItem.addQuantity(quantity);
             } else {
-                // Otherwise, create a new cart item
+               
                 cartItems.add(new CartItem(robot, quantity));
             }
-            robot.purchase(quantity);  // Reduce stock in inventory
+            robot.purchase(quantity); 
             System.out.println(quantity + " unit(s) of " + robot.getModel() + " added to cart.");
         } else {
             System.out.println("Not enough stock available. Only " + robot.getStock() + " unit(s) in stock.");
         }
     }
 
-    // Remove robot from cart
+
     public void removeRobotFromCart(String model) {
         CartItem cartItem = findCartItem(model);
         if (cartItem != null) {
             RobotProduct robot = cartItem.getRobot();
-            robot.restock(cartItem.getQuantity());  // Return stock to the inventory
+            robot.restock(cartItem.getQuantity());  
             cartItems.remove(cartItem);
             System.out.println("Removed " + model + " from cart.");
         } else {
@@ -40,7 +40,7 @@ class Cart {
         }
     }
 
-    // Update quantity of a robot in the cart
+
     public void updateRobotQuantity(String model, int newQuantity) {
         CartItem cartItem = findCartItem(model);
         if (cartItem != null) {
@@ -51,7 +51,7 @@ class Cart {
                 int additionalQuantity = newQuantity - currentQuantity;
                 if (robot.getStock() >= additionalQuantity) {
                     cartItem.setQuantity(newQuantity);
-                    robot.purchase(additionalQuantity);  // Reduce stock in inventory
+                    robot.purchase(additionalQuantity);  
                     System.out.println("Updated quantity of " + model + " to " + newQuantity);
                 } else {
                     System.out.println("Not enough stock available. Only " + robot.getStock() + " unit(s) in stock.");
@@ -59,7 +59,7 @@ class Cart {
             } else if (newQuantity < currentQuantity) {
                 int returnQuantity = currentQuantity - newQuantity;
                 cartItem.setQuantity(newQuantity);
-                robot.restock(returnQuantity);  // Return stock to inventory
+                robot.restock(returnQuantity);  
                 System.out.println("Updated quantity of " + model + " to " + newQuantity);
             }
         } else {
@@ -67,7 +67,7 @@ class Cart {
         }
     }
 
-    // Show items in the cart
+  
     public void showCart() {
         if (cartItems.isEmpty()) {
             System.out.println("Cart is empty.");
@@ -79,7 +79,7 @@ class Cart {
         }
     }
 
-    // Checkout and calculate total cost
+    
     public void checkout() {
         if (cartItems.isEmpty()) {
             System.out.println("Cart is empty. Add robots to cart before checkout.");
@@ -92,10 +92,10 @@ class Cart {
         }
         System.out.println("Total price: $" + total);
         System.out.println("Thank you for shopping!");
-        cartItems.clear();  // Empty the cart after checkout
+        cartItems.clear();  
     }
 
-    // Helper method to find a CartItem by robot model
+  
     private CartItem findCartItem(String model) {
         for (CartItem item : cartItems) {
             if (item.getRobot().getModel().equalsIgnoreCase(model)) {
