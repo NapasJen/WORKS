@@ -1,15 +1,15 @@
-// CartItem class to store a robot and its quantity in the cart
+
 class CartItem {
     private RobotProduct robot;
     private int quantity;
 
-    // Constructor
+
     public CartItem(RobotProduct robot, int quantity) {
         this.robot = robot;
         this.quantity = quantity;
     }
 
-    // Getters and setters
+
     public RobotProduct getRobot() {
         return robot;
     }
@@ -22,7 +22,7 @@ class CartItem {
         this.quantity = quantity;
     }
 
-    // Add quantity to the current item
+
     public void addQuantity(int quantity) {
         this.quantity += quantity;
     }
