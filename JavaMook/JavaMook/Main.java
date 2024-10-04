@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        AdminData adminData = new AdminData();  // Manages admin credentials
-        AuthSystem authSystem = new AuthSystem();  // Manages user authentication
-        Cart cart = new Cart();  // User's shopping cart
+        AdminData adminData = new AdminData();  
+        AuthSystem authSystem = new AuthSystem();  
+        Cart cart = new Cart();  
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
@@ -15,11 +15,11 @@ public class Main {
             System.out.println("4. Exit");
             System.out.print("Select an option: ");
             int choice = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
+            scanner.nextLine();  
 
             switch (choice) {
                 case 1:
-                    // User signup
+                  
                     System.out.print("Enter username: ");
                     String newUsername = scanner.nextLine();
                     System.out.print("Enter password: ");
@@ -28,13 +28,13 @@ public class Main {
                     break;
 
                 case 2:
-                    // User login
+              
                     System.out.print("Enter username: ");
                     String username = scanner.nextLine();
                     System.out.print("Enter password: ");
                     String password = scanner.nextLine();
                     if (authSystem.login(username, password)) {
-                        // User menu after login
+                       
                         boolean userLoggedIn = true;
                         while (userLoggedIn) {
                             System.out.println("1. Browse Robots");
@@ -46,22 +46,22 @@ public class Main {
                             System.out.println("7. Logout");
                             System.out.print("Select an option: ");
                             int userChoice = scanner.nextInt();
-                            scanner.nextLine();  // Consume newline
+                            scanner.nextLine(); 
 
                             switch (userChoice) {
                                 case 1:
-                                    // Browse robots (from all admins' inventories)
+                                   
                                     for (Admin admin : adminData.getAdminList()) {
                                         admin.showInventory();
                                     }
                                     break;
                                 case 2:
-                                    // Add robot to cart with quantity
+                                   
                                     System.out.print("Enter robot model to add to cart: ");
                                     String cartModel = scanner.nextLine();
                                     RobotProduct selectedRobot = null;
 
-                                    // Find robot in the inventory
+                                  
                                     for (Admin admin : adminData.getAdminList()) {
                                         for (RobotProduct robot : admin.getRobotInventory()) {
                                             if (robot.getModel().equalsIgnoreCase(cartModel)) {
@@ -75,24 +75,24 @@ public class Main {
                                         System.out.print("Enter quantity to add to cart: ");
                                         int quantity = scanner.nextInt();
 
-                                        // Add to cart and check stock
+                                       
                                         cart.addRobotToCart(selectedRobot, quantity);
                                     } else {
                                         System.out.println("Robot model not found.");
                                     }
                                     break;
                                 case 3:
-                                    // View cart
+                                  
                                     cart.showCart();
                                     break;
                                 case 4:
-                                    // Remove robot from cart
+                                   
                                     System.out.print("Enter robot model to remove from cart: ");
                                     String removeModel = scanner.nextLine();
                                     cart.removeRobotFromCart(removeModel);
                                     break;
                                 case 5:
-                                    // Update robot quantity in cart
+                                   
                                     System.out.print("Enter robot model to update quantity: ");
                                     String updateModel = scanner.nextLine();
                                     System.out.print("Enter new quantity: ");
@@ -100,11 +100,11 @@ public class Main {
                                     cart.updateRobotQuantity(updateModel, newQuantity);
                                     break;
                                 case 6:
-                                    // Checkout
+                                  
                                     cart.checkout();
                                     break;
                                 case 7:
-                                    // Logout
+                               
                                     authSystem.logout();
                                     userLoggedIn = false;
                                     break;
@@ -116,13 +116,13 @@ public class Main {
                     break;
 
                 case 3:
-                    // Admin login
+                
                     System.out.print("Enter admin username: ");
                     String adminUsername = scanner.nextLine();
                     System.out.print("Enter admin password: ");
                     String adminPassword = scanner.nextLine();
                     if (adminData.authenticate(adminUsername, adminPassword)) {
-                        // Admin menu
+                       
                         boolean adminLoggedIn = true;
                         while (adminLoggedIn) {
                             System.out.println("Admin Interface:");
@@ -133,11 +133,11 @@ public class Main {
                             System.out.println("5. Logout");
                             System.out.print("Select an option: ");
                             int adminChoice = scanner.nextInt();
-                            scanner.nextLine();  // Consume newline
+                            scanner.nextLine(); 
 
                             switch (adminChoice) {
                                 case 1:
-                                    // Add robot
+                                 
                                     System.out.print("Enter robot model: ");
                                     String model = scanner.nextLine();
                                     System.out.print("Enter robot price: ");
@@ -152,7 +152,7 @@ public class Main {
                                     }
                                     break;
                                 case 2:
-                                    // Update robot stock
+                                   
                                     System.out.print("Enter robot model: ");
                                     String updateModel = scanner.nextLine();
                                     System.out.print("Enter new stock: ");
@@ -165,7 +165,7 @@ public class Main {
                                     }
                                     break;
                                 case 3:
-                                    // Remove robot
+                                 
                                     System.out.print("Enter robot model to remove: ");
                                     String removeModel = scanner.nextLine();
                                     Admin removeAdmin = adminData.getAdminList().stream()
@@ -176,7 +176,7 @@ public class Main {
                                     }
                                     break;
                                 case 4:
-                                    // View inventory
+                                   
                                     Admin viewAdmin = adminData.getAdminList().stream()
                                             .filter(a -> a.getUsername().equals(adminUsername))
                                             .findFirst().orElse(null);
@@ -185,7 +185,7 @@ public class Main {
                                     }
                                     break;
                                 case 5:
-                                    // Logout
+                                 
                                     adminLoggedIn = false;
                                     break;
                                 default:
@@ -197,7 +197,7 @@ public class Main {
                     }
                     break;
                 case 4:
-                    // Exit
+                 
                     running = false;
                     break;
 
